@@ -1,11 +1,16 @@
 var DataTypes = require("sequelize").DataTypes;
+var _post = require("./post");
 var _user = require("./user");
 
 function initModels(sequelize) {
+  var post = _post(sequelize, DataTypes);
   var user = _user(sequelize, DataTypes);
 
+  post.belongsTo(user, { as: "user", foreignKey: "user_id"});
+  user.hasMany(post, { as: "posts", foreignKey: "user_id"});
 
   return {
+    post,
     user,
   };
 }

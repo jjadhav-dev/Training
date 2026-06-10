@@ -1,40 +1,36 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('user', {
+  return sequelize.define('post', {
     id: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
     },
-    name: {
-      type: DataTypes.STRING(255),
-      allowNull: false
-    },
-    email: {
-      type: DataTypes.STRING(255),
+    user_id: {
+      type: DataTypes.INTEGER,
       allowNull: false,
-      unique: "users_email_key"
+      references: {
+        model: 'users',
+        key: 'id'
+      }
     },
-    password: {
-      type: DataTypes.STRING(255),
+    description: {
+      type: DataTypes.TEXT,
       allowNull: false
+    },
+    image_url: {
+      type: DataTypes.STRING(255),
+      allowNull: true
     }
   }, {
     sequelize,
-    tableName: 'users',
+    tableName: 'posts',
     schema: 'public',
     timestamps: true,
     indexes: [
       {
-        name: "users_email_key",
-        unique: true,
-        fields: [
-          { name: "email" },
-        ]
-      },
-      {
-        name: "users_pkey",
+        name: "posts_pkey",
         unique: true,
         fields: [
           { name: "id" },
