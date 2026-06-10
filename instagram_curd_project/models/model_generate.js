@@ -12,7 +12,7 @@ const auto = new SequelizeAuto(process.env.database, process.env.username, proce
     additional: {
         timestamps: true,
     },
-    tables: ['users'] 
+    tables: ['users','posts'] 
 })
 
 auto.run(err => {
