@@ -9,9 +9,12 @@ const createPostSchema = {
     },
     image_url: { 
       type: 'string', 
+    },
+    name:{
+      type:'string'
     }
   },
-  required: ['description', 'image_url'],
+  required: ['description', 'image_url','name'],
   additionalProperties: false
 };
 

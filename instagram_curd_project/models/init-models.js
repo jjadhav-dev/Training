@@ -1,9 +1,11 @@
 var DataTypes = require("sequelize").DataTypes;
 var _post = require("./post");
+var _tag = require("./tag");
 var _user = require("./user");
 
 function initModels(sequelize) {
   var post = _post(sequelize, DataTypes);
+  var tag = _tag(sequelize, DataTypes);
   var user = _user(sequelize, DataTypes);
 
   post.belongsTo(user, { as: "user", foreignKey: "user_id"});
@@ -11,6 +13,7 @@ function initModels(sequelize) {
 
   return {
     post,
+    tag,
     user,
   };
 }

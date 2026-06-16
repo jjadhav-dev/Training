@@ -1,5 +1,5 @@
 const { where } = require('sequelize');
-const { user, post } = require('../../models');
+const { user, post,tag} = require('../../models');
 const { ConflictError, NotFoundError, App, AppError } = require('../../utils/error');
 
 const getAllPostService = async (reqData) => {
@@ -21,6 +21,10 @@ const getAllPostService = async (reqData) => {
         where: { user_id: reqData.id },
         limit,
         offset,
+        inculde:[{
+            model:tag,
+            as:''
+        }],
         order: [['createdAt', 'DESC']]
     });
 

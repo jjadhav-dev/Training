@@ -15,7 +15,7 @@ const registerUserService = async (userData) => {
     const hashedPassword = await bcrypt.hash(password, parseInt(process.env.saltRounds));
     const newUser = await user.create({ ...userData, password: hashedPassword });
     const data = await user.findOne({
-        where: { id: new_user.id },
+        where: { id: newUser.id },
         attributes: { exclude: ['password'] }
     })
     return data;

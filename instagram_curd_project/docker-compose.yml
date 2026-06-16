@@ -1,0 +1,23 @@
+services:
+  app:
+    build: .
+    ports:
+      - "4010:4010"
+    env_file:
+      - .env
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:17
+    environment:
+      POSTGRES_USER: jay
+      POSTGRES_PASSWORD: jayesh9090
+      POSTGRES_DB: mydb
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:

@@ -3,7 +3,7 @@
     "username": "jay",
     "password": "jayesh9090",
     "database": "mydb",
-    "host": "127.0.0.1",
+    "host": "postgres",
     "dialect": "postgres",
     "port": 5432
     },
