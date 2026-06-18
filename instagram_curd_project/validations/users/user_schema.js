@@ -22,8 +22,27 @@ const loginUserSchema = {
     required: ['password', 'email'],
     additionalProperties: false
 
-}
+};
+
+const verifyOtpSchema = {
+    type: 'object',
+    properties: {
+        email: { type: 'string', format: 'email' },
+        otp: { type: 'string', pattern: '^[0-9]{6}$' }
+    },
+    required: ['email', 'otp'],
+    additionalProperties: false
+};
+
+const verifyEmailSchema = {
+    type: 'object',
+    properties: {
+        email: { type: 'string', format: 'email' },
+    },
+    required: ['email'],
+    additionalProperties: false
+};  
 module.exports = {
-    registerUserSchema, loginUserSchema
+    registerUserSchema, loginUserSchema, verifyOtpSchema, verifyEmailSchema
 }
     

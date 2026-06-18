@@ -54,9 +54,14 @@ module.exports = function(sequelize, DataTypes) {
       unique: "users_username_key"
     },
     is_verify: {
-      type: DataTypes.STRING(255),
-      allowNull: true,
-      defaultValue: "false"
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false
+    },
+    is_active: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: true
     }
   }, {
     sequelize,
