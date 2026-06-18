@@ -165,7 +165,7 @@ const loginService = async (userData) => {
     }
     const token = jwt.sign({ id: userExits.id, email: userExits.email, role: userExits.role }, process.env.secretkey, { expiresIn: '1d' })
     return { name: userExits.name, email: userExits.email, authToken: token }
-}
+}   
 
 /*
  * @description: Verify registration OTP

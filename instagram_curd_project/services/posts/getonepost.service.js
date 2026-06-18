@@ -1,11 +1,22 @@
-const { user, post } = require('../../models');
-const { ConflictError, NotFoundError, App, AppError } = require('../../utils/error');
-
-const getOnePostService = async(id)=>{
+const { post, tag ,posttag} = require('../../models');
+const getOnePostService = async(reqData)=>{
     const getPost = await post.findOne({
         where:{
-            id
-        }
+            id: reqData.id,
+            user_id: reqData.userId
+        },
+        include: [{
+            model: posttag,
+            as: 'posttags',
+            attributes: ['id', 'post_id', 'tag_id'],
+            include: [
+                { 
+                    model: tag,
+                     as: 'tag', 
+                     attributes: ['id', 'name'] 
+                }
+            ]
+        }]
     })
     return getPost;
 }

@@ -15,14 +15,6 @@ module.exports = function(sequelize, DataTypes) {
         key: 'id'
       }
     },
-    description: {
-      type: DataTypes.TEXT,
-      allowNull: false
-    },
-    image_url: {
-      type: DataTypes.STRING(255),
-      allowNull: true
-    },
     status: {
       type: DataTypes.STRING(255),
       allowNull: false,
@@ -31,6 +23,29 @@ module.exports = function(sequelize, DataTypes) {
     schedule_time: {
       type: DataTypes.DATE,
       allowNull: true
+    },
+    caption: {
+      type: DataTypes.STRING(255),
+      allowNull: true
+    },
+    post_type: {
+      type: DataTypes.ENUM("image","video"),
+      allowNull: true,
+      defaultValue: "image"
+    },
+    url: {
+      type: DataTypes.STRING(255),
+      allowNull: true
+    },
+    is_archived: {
+      type: DataTypes.BOOLEAN,
+      allowNull: true,
+      defaultValue: false
+    },
+    is_deleted: {
+      type: DataTypes.BOOLEAN,
+      allowNull: true,
+      defaultValue: false
     }
   }, {
     sequelize,

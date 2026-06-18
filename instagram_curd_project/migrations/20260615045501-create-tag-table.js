@@ -10,11 +10,16 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      post_id:{
+      created_by:{
+        type:Sequelize.STRING,
+        defaultValue:'admin',
+        enum:['admin','user']
+      },
+      user_id:{
         allowNull:false,
         type:Sequelize.INTEGER,
         references:{
-          model:"posts",
+          model:"users",
           key:'id'
         },
         onUpdate: 'CASCADE',
