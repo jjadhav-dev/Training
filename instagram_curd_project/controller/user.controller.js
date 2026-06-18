@@ -6,7 +6,6 @@ const registerUserController = async (req, res, next) => {
             ...req.body,
             profileFile: req.file
         });
-        console.log("File Uploadin",{...req.body,...req.file})
         res.sendJsonResponse({ statusCode: 201, message: "User registered successfully", data: newUser });
     } catch (error) {
         next(error);

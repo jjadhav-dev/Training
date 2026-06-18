@@ -1,8 +1,12 @@
 // services/posts/createpost.service.js
+require('dotenv').config();
 const { Queue } = require('bullmq');
 const { user, post, sequelize, tag } = require('../../models');
 
-const connection = { host: '127.0.0.1', port: 6379 };
+const connection = {
+    host: process.env.REDIS_HOST || '127.0.0.1',
+    port: process.env.REDIS_PORT ? Number(process.env.REDIS_PORT) : 6379
+};
 const publishQueue = new Queue('publishQueue', { connection });
 
 const createPostService = async (reqData) => {
