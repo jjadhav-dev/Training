@@ -19,6 +19,44 @@ module.exports = function(sequelize, DataTypes) {
     password: {
       type: DataTypes.STRING(255),
       allowNull: false
+    },
+    role: {
+      type: DataTypes.STRING(255),
+      allowNull: true,
+      defaultValue: "user"
+    },
+    mobile_no: {
+      type: DataTypes.STRING(255),
+      allowNull: true
+    },
+    bio: {
+      type: DataTypes.STRING(255),
+      allowNull: true
+    },
+    profile_url: {
+      type: DataTypes.STRING(255),
+      allowNull: true
+    },
+    is_account: {
+      type: DataTypes.STRING(255),
+      allowNull: true,
+      defaultValue: "public"
+    },
+    is_deleted: {
+      type: DataTypes.STRING(255),
+      allowNull: true,
+      defaultValue: "false"
+    },
+    username: {
+      type: DataTypes.STRING(255),
+      allowNull: true,
+      defaultValue: "NULL",
+      unique: "users_username_key"
+    },
+    is_verify: {
+      type: DataTypes.STRING(255),
+      allowNull: true,
+      defaultValue: "false"
     }
   }, {
     sequelize,
@@ -38,6 +76,13 @@ module.exports = function(sequelize, DataTypes) {
         unique: true,
         fields: [
           { name: "id" },
+        ]
+      },
+      {
+        name: "users_username_key",
+        unique: true,
+        fields: [
+          { name: "username" },
         ]
       },
     ]

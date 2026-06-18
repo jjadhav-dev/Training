@@ -1,7 +1,9 @@
 require('dotenv').config();
 const express = require('express');
+const path = require('path');
 const app = express();
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 const {globalErrorHandler} = require('./middlewares/errorHandler')
 const { apiresponse } = require('./utils/apiresponse')
 const port = process.env.server_port || 3000;
@@ -30,6 +32,7 @@ app.use('/admin/queues', serverAdapter.getRouter());
 
 
 app.use(apiresponse)
+app.use('/public', express.static(path.join(__dirname, 'public')));
 // ***********Imports Routes****************//
 app.use('/api', require('./routes/index'));
 
