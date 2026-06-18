@@ -15,8 +15,6 @@ const createPostService = async (reqData) => {
         const { id: user_id, scheduleTime, ...data } = reqData;
 
         const status = scheduleTime ? 'pending' : 'published';
-        console.log('scheduleTime:', scheduleTime);
-
         const postresult = await post.create({
             ...data,
             user_id,
@@ -32,11 +30,11 @@ const createPostService = async (reqData) => {
         await t.commit();
 
         if (scheduleTime) {
-           // const raw = String(scheduleTime);
+            // const raw = String(scheduleTime);
             
             const scheduledTs = new Date(scheduleTime).getTime();
-            console.log("schedule",scheduledTs);
-            
+            console.log("schedule", scheduledTs);
+
             if (isNaN(scheduledTs)) throw new Error('Invalid scheduleTime format');
             if (scheduledTs <= Date.now()) throw new Error('scheduleTime must be in the future');
 
