@@ -3,10 +3,11 @@
     "username": "jay",
     "password": "jayesh9090",
     "database": "mydb",
-    "host": "postgres",
+    "host": "localhost",
     "dialect": "postgres",
-    "port": 5432
-    },
+    "port": 5432,
+    "logging": false
+  },
   "test": {
     "username": "root",
     "password": null,

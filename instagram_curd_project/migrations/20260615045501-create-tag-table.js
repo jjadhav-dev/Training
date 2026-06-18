@@ -10,6 +10,16 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
+      post_id:{
+        allowNull:false,
+        type:Sequelize.INTEGER,
+        references:{
+          model:"posts",
+          key:'id'
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+      },
       name: {
         type: Sequelize.STRING,
         allowNull: false

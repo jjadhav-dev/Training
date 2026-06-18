@@ -15,7 +15,7 @@ const createPostSchema = {
     }
   },
   required: ['description', 'image_url','name'],
-  additionalProperties: false
+  additionalProperties: true
 };
 
 const getOnePostSchema = {
