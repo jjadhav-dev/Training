@@ -1,21 +1,23 @@
-const createPostSchema = {
+const   createPostSchema = {
   type: 'object',
   properties: {
-    description: { 
+    caption: {
       type: 'string', 
-      minLength: 1, 
-      maxLength: 500,
+      maxLength: 255,
       pattern: '^(?!\\s*$).+' 
     },
-    image_url: { 
+    post_type: {
       type: 'string', 
+      enum: ['image', 'video']
     },
-    name:{
+    name: {
+      type: 'string'
+    },
+    scheduleTime: {
       type:'string'
     }
   },
-  required: ['description', 'image_url','name'],
-  additionalProperties: true
+  additionalProperties: false
 };
 
 const getOnePostSchema = {
@@ -31,13 +33,16 @@ const updatePostSchema = {
   type: 'object',
   properties: {
     id: { type: ['integer', 'string'] },
-    description: {
+    caption: {
       type: 'string',
-      minLength: 1,
-      maxLength: 500,
+      maxLength: 255,
       pattern: '^(?!\\s*$).+'
     },
-    image_url: { type: 'string' }
+    post_type: {
+      type: 'string',
+      enum: ['image', 'video']
+    },
+    url: { type: 'string' }
   },
   required: ['id'],
   additionalProperties: false
