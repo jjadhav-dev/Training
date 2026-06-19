@@ -4,7 +4,7 @@ const { validateSchema } = require('../utils/validate_schema');
 const { authenticateToken } = require('../middlewares/authmiddleware')
 const { handlePostUpload } = require('../middlewares/upload.middleware');
 const { createPostController, getAllPostController, getOnePostController, deletPostController } = require('../controller/post.controller')
-const { createPostSchema, getOnePostSchema, updatePostSchema } = require('../validations/posts/post_schema')
+const { createPostSchema, getOnePostSchema } = require('../validations/posts/post_schema')
 
 router.post('/createpost', authenticateToken, handlePostUpload, validateSchema(createPostSchema), createPostController)
 router.get('/getallpost', authenticateToken, getAllPostController)
