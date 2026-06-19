@@ -3,6 +3,7 @@ const { createPostService } = require('../services/posts/createpost.service')
 const { getAllPostService } = require('../services/posts/getallpost.service')
 const { getOnePostService } = require('../services/posts/getonepost.service')
 const { deletePostService } = require('../services/posts/deletepost.service')
+const { getPostByTagService } = require('../services/posts/getpostbytag.service')
 
 const createPostController = async (req, res, next) => {
     try {
@@ -46,9 +47,20 @@ const deletPostController = async (req, res, next) => {
     }
 }
 
+
+const getPostByTagController = async (req, res, next) => {
+    try {
+        const data = await getPostByTagService(req.params.tag_id);
+        return res.sendJsonResponse({ statusCode: 200, message: "Post By Tag", data: data })
+    } catch (error) {
+        next(error)
+    }
+}
+
 module.exports = {
     createPostController,
     getAllPostController,
     getOnePostController,
-    deletPostController
+    deletPostController,
+    getPostByTagController
 }

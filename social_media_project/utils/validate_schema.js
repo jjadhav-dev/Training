@@ -2,7 +2,7 @@
 
 const Ajv = require('ajv')
 const addFormats = require('ajv-formats')
-const { validationError } = require('../utils/error')
+const { validationError } = require('./error')
 
 const ajv = new Ajv({
     allErrors: true,

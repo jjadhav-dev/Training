@@ -1,33 +1,32 @@
 const { follow, user } = require('../../models');
 
-const getPndingRequestService = async (user_id) => {
+const getFollowerService = async (user_id) => {
     const userData = await user.findOne({
-        where: {
-            id: user_id
-        },
+        where: { id: user_id },
         attributes: ['id', 'username'],
-    })
+    });
     if (!userData) {
         throw new Error('User not found');
     }
-    const pendingRequest = await follow.findAll({
+
+    const result = await follow.findAll({
         where: {
             following_id: user_id,
-            status: 'pending',
         },
-        attributes: [],
-        raw: true,
         include: {
             model: user,
             as: 'follower',
             attributes: ['id', 'username'],
         }
+    });
+    if (!result) {
+        throw new Error('Follower not found');
+    }
 
-        })
     return {
         userData,
-        pendingRequest,
-        pendingRequestCount: pendingRequest.length,
-    };  
+        result,
+        totalFollower: result.length,
+    };
 }
-module.exports = { getPndingRequestService }
+module.exports = { getFollowerService };

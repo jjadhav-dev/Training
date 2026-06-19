@@ -9,5 +9,4 @@ router.post('/createcomment', authenticateToken, validateSchema(createCommentSch
 router.get('/getpostcomment/:post_id', authenticateToken, getPostCommentController); 
 router.post('/replycomment', authenticateToken, validateSchema(replyCommentSchema), replyCommentController); 
 router.delete('/deletecomment/:id', authenticateToken, deleteCommentController);
-
 module.exports = router;
