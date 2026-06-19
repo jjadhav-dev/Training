@@ -28,7 +28,7 @@ const getAllPostController = async (req, res, next) => {
 
 const getOnePostController = async (req, res, next) => {
     try {
-        console.log("useaaar", req.user.id)
+        // console.log("user", req.user.id)
         const data = await getOnePostService({ ...req.params, userId: req.user.id })
         return res.sendJsonResponse({ statusCode: 200, message: "User Post", data: data })
     } catch (error) {
