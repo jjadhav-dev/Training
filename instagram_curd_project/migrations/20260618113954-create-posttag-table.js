@@ -16,7 +16,9 @@ module.exports = {
         references: {
           model: 'posts',
           key: 'id'
-        }
+        },
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE'
       },
       tag_id: {
         allowNull: false,
@@ -24,7 +26,9 @@ module.exports = {
         references: {
           model: 'tags',
           key: 'id'
-        }
+        },
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE'
       },
       is_deleted: {
         allowNull: false,
