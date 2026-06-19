@@ -5,11 +5,14 @@ const path = require('path');
 const { Queue } = require('bullmq');
 const { user, post, sequelize, tag, posttag } = require('../../models');
 const { NotFoundError, validationError } = require('../../utils/error');
+const Redis = require('ioredis');
+
 
 const connection = {
     host: process.env.REDIS_HOST || '127.0.0.1',
     port: process.env.REDIS_PORT ? Number(process.env.REDIS_PORT) : 6379
 };
+const redis = new Redis(connection);
 const publishQueue = new Queue('publishQueue', { connection });
 const publicRoot = path.join(process.cwd(), 'public');
 
@@ -73,6 +76,7 @@ const createPostService = async (reqData) => {
 
         const status = scheduleTime ? 'pending' : 'published';
         const url = await savePostMedia(existingUser.username, postFile);
+        console.log("url",url)
         const postresult = await post.create({
             user_id,
             status,
@@ -93,10 +97,18 @@ const createPostService = async (reqData) => {
 
         await posttag.create({
             post_id: postresult.id,
-            tag_id: tagId?.id
+            tag_id: tagId?.id ?? tag_id
         }, { transaction: t });
 
         await t.commit();
+
+        // delete redis cahe when a new post create 
+        const pattern = `user:${reqData.id}:posts:*`;
+        const keys = await redis.keys(pattern);
+        if (keys.length) {
+            await redis.del(keys);
+            console.log(`Cleared cache for user ${reqData.id}`);
+        }
 
         if (scheduleTime) {
             const scheduledTs = new Date(scheduleTime).getTime();
