@@ -1,11 +1,20 @@
+const e = require("express");
+
 const registerUserSchema = {
     type: 'object',
     properties: {
-        name: { type: 'string', minLength: 1 },
-        username: { type: 'string', minLength: 3, pattern: '^[a-zA-Z0-9._-]+$' },
+        name: { type: 'string', pattern: '^(?!\\s*$).+',
+        errorMessage:{
+            pattern:'name must not be empty'
+         }},
+        username: { type: 'string', minLength: 3 ,pattern: '^(?!\\s*$).+',
+        errorMessage:{
+            pattern:'name must not be empty'
+        }
+        },
         email: { type: 'string', format: 'email' },
         password: { type: 'string', minLength: 3 },
-        mobile_no: { type: 'string' },
+        mobile_no: { type: 'string',minLength:10},
         bio: { type: 'string' },
         is_account: { type: 'string', enum: ['public', 'private'] }
     },

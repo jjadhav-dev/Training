@@ -1,8 +1,8 @@
 {
   "development": {
-    "username": "jay",
-    "password": "jayesh9090",
-    "database": "mydb",
+    "username": "postgres",
+    "password": "jayesh2016",
+    "database": "testdb",
     "host": "localhost",
     "dialect": "postgres",
     "port": 5432,

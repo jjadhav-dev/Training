@@ -66,17 +66,14 @@ const createPostService = async (reqData) => {
             throw new validationError('url file is required for video posts');
         }
 
-        if (postFile && post_type === 'video' && !postFile.mimetype.startsWith('video/')) {
-            throw new validationError('Please upload a video file for video posts');
+          if (post_type === 'image' && !postFile) {
+            throw new validationError('url file is required for image posts');
         }
 
-        if (postFile && (post_type || 'image') === 'image' && !postFile.mimetype.startsWith('image/')) {
-            throw new validationError('Please upload an image file for image posts');
-        }
 
         const status = scheduleTime ? 'pending' : 'published';
         const url = await savePostMedia(existingUser.username, postFile);
-        console.log("url",url)
+       // console.log("url",url)
         const postresult = await post.create({
             user_id,
             status,

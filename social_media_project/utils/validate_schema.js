@@ -3,6 +3,7 @@
 const Ajv = require('ajv')
 const addFormats = require('ajv-formats')
 const { validationError } = require('./error')
+const ajvErrors = require('ajv-errors')
 
 const ajv = new Ajv({
     allErrors: true,
@@ -10,7 +11,7 @@ const ajv = new Ajv({
 })
 
 addFormats(ajv)
-
+ajvErrors(ajv)
 
 const validateSchema = (schema, source = 'body') => {
     const validate = ajv.compile(schema);
