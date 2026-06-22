@@ -15,7 +15,7 @@ const sendFollowController = async (req, res, next) => {
 
 const getFollowingController = async (req, res, next) => {
     try {
-        const followingData = await getFollowingService(req.user.id);        
+        const followingData = await getFollowingService(req.user.id,req.query);        
         res.sendJsonResponse({ message: 'Following data retrieved successfully', data:followingData });
     } catch (error) {
         next(error);

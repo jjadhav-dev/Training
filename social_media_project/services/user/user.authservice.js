@@ -9,7 +9,6 @@ const path = require('path');
 require('dotenv').config();
 const projectRoot = path.resolve(__dirname, '../..');
 const publicRoot = path.join(projectRoot, 'public');
-
 const connection = {
     host: process.env.REDIS_HOST || '127.0.0.1',
     port: process.env.REDIS_PORT ? Number(process.env.REDIS_PORT) : 6379
@@ -164,8 +163,14 @@ const loginService = async (userData) => {
         throw new AppError("Invalid Password")
     }
     const token = jwt.sign({ id: userExits.id, email: userExits.email, role: userExits.role }, process.env.secretkey, { expiresIn: '1d' })
+
+    await user.update(
+        { is_active: true },                
+        { where: { email: userExits.email } } 
+    );
+    
     return { name: userExits.name, email: userExits.email, authToken: token }
-}   
+}
 
 /*
  * @description: Verify registration OTP

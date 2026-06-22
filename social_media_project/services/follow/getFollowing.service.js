@@ -1,6 +1,9 @@
 const { follow,user } = require('../../models');
 
-const getFollowingService = async (user_id) => {    
+const getFollowingService = async (user_id,query) => {    
+    const { page = 1, pageSize = 10 } = query;
+    const offset = (page - 1) * pageSize;
+
     const userData = await user.findOne({
         where: {
             id: user_id,
@@ -15,6 +18,8 @@ const getFollowingService = async (user_id) => {
         },
         attributes: [],
         raw: true,
+        offset,
+        limit: pageSize,
         include: {
             model: user,
             as: 'following',

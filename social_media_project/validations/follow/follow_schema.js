@@ -8,4 +8,18 @@ const sendFollowSchema = {
   },
   required: ['following_id'],
 }
-module.exports = {sendFollowSchema}
+const acceptFollowSchema = {
+  type: 'object',
+  properties: {
+    following_id: {
+      type: 'integer',
+      description: 'The following ID',
+    },
+    status: {
+      type: 'string',
+      enum: ['accept', 'reject']
+    },
+  },
+  required: ['following_id'],
+}
+module.exports = {sendFollowSchema,acceptFollowSchema}

@@ -1,4 +1,3 @@
-const e = require("express");
 
 const registerUserSchema = {
     type: 'object',
@@ -51,7 +50,17 @@ const verifyEmailSchema = {
     required: ['email'],
     additionalProperties: false
 };  
+
+const userlogoutSchema = {
+    type: 'object',
+    properties: {
+        email: { type: 'string', format: 'email' },
+    },
+    required: ['email'],
+    additionalProperties: false
+};
+
 module.exports = {
-    registerUserSchema, loginUserSchema, verifyOtpSchema, verifyEmailSchema
+    registerUserSchema, loginUserSchema, verifyOtpSchema, verifyEmailSchema,userlogoutSchema
 }
     
