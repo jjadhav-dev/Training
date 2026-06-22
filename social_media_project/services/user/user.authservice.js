@@ -154,6 +154,10 @@ const loginService = async (userData) => {
         throw new NotFoundError("Invalid Email or Password")
     }
 
+    if(userExits.account_band) {
+        throw new AppError("Your account band is not band please contact support team")
+    }
+    
     if (!userExits.is_verify) {
         throw new AppError("Account not verified Please verify your email")
     }
