@@ -17,7 +17,6 @@ const getAllPostService = async (reqData) => {
         return JSON.parse(cached);
     }
 
-    
     const checkUserExists = await user.findOne({
         where: { id: reqData.id },
         attributes: ['id', 'is_active','profile_url','username']
@@ -57,7 +56,7 @@ const getAllPostService = async (reqData) => {
 const generatePostsReport = async (userData) => {
   const workbook = new ExcelJS.Workbook();
   const worksheet = workbook.addWorksheet('Posts Report');
-  console.log(userData);
+  //console.log(userData);
 
   worksheet.columns = [
     { header: 'User ID', key: 'user_id', width: 10 },
