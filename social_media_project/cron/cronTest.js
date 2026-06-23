@@ -28,7 +28,7 @@ async function sendBirthdayEmail(user) {
 }
 
 // Cronjob: runs every midnight
-cron.schedule("*c * * * * *", async () => {
+cron.schedule('0 0 * * *', async () => {
   console.log("Running birthday cronjob...");
 
   try {

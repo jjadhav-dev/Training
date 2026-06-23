@@ -121,8 +121,8 @@ const deleteProfileImage = async (profileUrl) => {
 */
 
 const registerUserService = async (userData) => {
-    const { name, username, email, mobile_no, password, bio, is_account, profileFile } = userData;
-
+    const { name, username, email, mobile_no, password, bio, is_account, profileFile, dob } = userData;
+    // console.log("registerUserService", userData)
     const userExits = await user.findOne({ where: { email } });
     if (userExits) {
         throw new ConflictError("Email alreday exists")
@@ -132,7 +132,7 @@ const registerUserService = async (userData) => {
     if (userMobileExits) {
         throw new ConflictError("Mobile number already exists")
     }
-
+    // console.log("username", username)
     const userUsernameExits = await user.findOne({ where: { username } });
     if (userUsernameExits) {
         throw new ConflictError("Username already exists")
@@ -150,7 +150,8 @@ const registerUserService = async (userData) => {
         password: hashedPassword,
         bio,
         is_account,
-        profile_url
+        profile_url,
+        dob
     });
 
     const otp = generateOtp();

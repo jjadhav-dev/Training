@@ -4,15 +4,22 @@ const registerUserSchema = {
     properties: {
         name: { type: 'string', pattern: '^(?!\\s*$).+',
         errorMessage:{
-            pattern:'name must not be empty'
+            pattern:'name must not be empty'          
          }},
+         username: { type: 'string', minLength: 3 ,pattern: '^(?!\\s*$).+',
+        errorMessage:{
+            pattern:'username must not be empty'
+        }
+        },
         email: { type: 'string', format: 'email' },
         mobile_no: { type: 'string',minLength:10},
         bio: { type: 'string' },
+        dob: { type: 'string', format: 'date' },
         is_account: { type: 'string', enum: ['public', 'private'] }
     },
-    required: [],
-    additionalProperties: false
+    
+    required: ['name', 'email', 'mobile_no', 'bio', 'dob'],
+    additionalProperties: true
 };
 
 const loginUserSchema = {
