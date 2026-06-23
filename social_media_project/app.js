@@ -7,6 +7,8 @@ app.use(express.urlencoded({ extended: true }));
 const {globalErrorHandler} = require('./middlewares/errorHandler')
 const { apiresponse } = require('./utils/apiresponse')
 const port = process.env.server_port || 3000;
+require('./cron/cronTest');
+
 
 const { createBullBoard } = require('@bull-board/api');
 const { BullMQAdapter } = require('@bull-board/api/bullMQAdapter');

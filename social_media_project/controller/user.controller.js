@@ -1,4 +1,4 @@
-const { registerUserService, loginService, verifyOtpService, resendOtpService, changePasswordService, logoutService, updateUserService }= require('../services/user/user.authservice');
+const { registerUserService, loginService, verifyOtpService, resendOtpService, changePasswordService, logoutService }= require('../services/user/user.authservice');
 
 
 
