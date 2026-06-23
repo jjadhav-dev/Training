@@ -17,7 +17,7 @@ const   createPostSchema = {
       type:'string'
     }
   },
-  additionalProperties: false
+  additionalProperties: true
 };
 
 const getOnePostSchema = {

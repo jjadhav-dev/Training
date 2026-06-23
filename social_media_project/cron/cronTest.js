@@ -2,7 +2,6 @@ const cron = require("node-cron");
 const nodemailer = require("nodemailer");
 const { user ,sequelize} = require("../models");
 
-console.log(process.env.OTP_EMAIL_PASS);
 
 const mailTransporter = nodemailer.createTransport({
   service: "gmail",
