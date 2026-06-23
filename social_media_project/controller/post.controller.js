@@ -5,7 +5,7 @@ const { getOnePostService } = require('../services/posts/getonepost.service')
 const { deletePostService } = require('../services/posts/deletepost.service')
 const { getPostByTagService } = require('../services/posts/getpostbytag.service')
 const { getPostFeedService } = require('../services/posts/getfeedpost.service')
-
+const { archivePostService } = require('../services/posts/archivepost.service')
 
 
 const createPostController = async (req, res, next) => {
@@ -69,12 +69,20 @@ const getPostFeedController = async (req, res, next) => {
     }
 }
 
-
+const archivePostController = async (req, res, next) => {
+    try {
+        const data = await archivePostService(req.body);
+        return res.sendJsonResponse({ statusCode: 200, message: "Post Data Archivedived", data: data })
+    } catch (error) {
+        next(error)
+    }
+}
 module.exports = {
     createPostController,
     getAllPostController,
     getOnePostController,
     deletPostController,
     getPostByTagController,
-    getPostFeedController
+    getPostFeedController,
+    archivePostController
 }
