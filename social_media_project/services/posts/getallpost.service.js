@@ -38,9 +38,7 @@ const getAllPostService = async (reqData) => {
         }],
         order: [['createdAt', 'DESC']]
     });
-    const excelBase64 = await generatePostsReport({ user: checkUserExists,posts: userPostData.rows,});
-    console.log("userPostData",excelBase64);
-    
+    const excelBase64 = await generatePostsReport({ user: checkUserExists,posts: userPostData.rows,});    
     const response = {
         user: checkUserExists,
         posts: userPostData.rows,
@@ -59,8 +57,8 @@ const getAllPostService = async (reqData) => {
 const generatePostsReport = async (userData) => {
   const workbook = new ExcelJS.Workbook();
   const worksheet = workbook.addWorksheet('Posts Report');
-    console.log(userData);
-    
+  console.log(userData);
+
   worksheet.columns = [
     { header: 'User ID', key: 'user_id', width: 10 },
     { header: 'Username', key: 'username', width: 20 },
@@ -71,6 +69,16 @@ const generatePostsReport = async (userData) => {
     { header: 'Created At', key: 'createdAt', width: 25 },
     { header: 'Tags', key: 'tags', width: 30 }
   ];
+
+  worksheet.getRow(1).eachCell((cell) => {
+    cell.font = { bold: true, color: { argb: 'FF0000FF' } }; 
+    cell.fill = {
+      type: 'pattern',
+      pattern: 'solid',
+      fgColor: { argb: 'FFDCE6F1' } 
+    };
+    cell.alignment = { horizontal: 'center' };
+  });
 
   userData.posts.forEach(post => {
     worksheet.addRow({
