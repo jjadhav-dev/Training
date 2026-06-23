@@ -19,8 +19,8 @@ const OTP_KEY_PREFIX = 'user-register-otp';
 const mailTransporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-        user: process.env.OTP_EMAIL_USER || 'jaytcs111@gmail.com',
-        pass: process.env.OTP_EMAIL_PASS || 'vpgj zzrc iory kkyx'
+        user: process.env.OTP_EMAIL_USER,
+        pass: process.env.OTP_EMAIL_PASS
     }
 });
 

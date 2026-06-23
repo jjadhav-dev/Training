@@ -1,13 +1,14 @@
 const cron = require("node-cron");
 const nodemailer = require("nodemailer");
-const { user ,sequelize} = require("../models"); // Sequelize User model
+const { user ,sequelize} = require("../models");
 
-// Nodemailer transporter
+console.log(process.env.OTP_EMAIL_PASS);
+
 const mailTransporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
-    user: process.env.OTP_EMAIL_USER || "jaytcs111@gmail.com",
-    pass: process.env.OTP_EMAIL_PASS || "vpgj zzrc iory kkyx" // App password
+    user: process.env.OTP_EMAIL_USER,
+    pass: process.env.OTP_EMAIL_PASS 
   }
 });
 
@@ -27,7 +28,6 @@ async function sendBirthdayEmail(user) {
   }
 }
 
-// Cronjob: runs every midnight
 cron.schedule('0 0 * * *', async () => {
   console.log("Running birthday cronjob...");
 
