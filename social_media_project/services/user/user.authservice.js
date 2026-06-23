@@ -99,6 +99,23 @@ const saveProfileImage = async (username, profileFile, profileDir) => {
     return `/public/${username}/profile/${fileName}`;
 };
 
+const deleteProfileImage = async (profileUrl) => {
+    if (!profileUrl) {
+        return;
+    }
+
+    const relativePath = profileUrl.replace(/^\/+/, '');
+    const filePath = path.join(projectRoot, relativePath);
+
+    try {
+        await fs.unlink(filePath);
+    } catch (error) {
+        if (error.code !== 'ENOENT') {
+            throw error;
+        }
+    }
+};
+
 /*
  * @description: Register user
 */
@@ -154,10 +171,10 @@ const loginService = async (userData) => {
         throw new NotFoundError("Invalid Email or Password")
     }
 
-    if(userExits.account_band) {
+    if (userExits.account_band) {
         throw new AppError("Your account band is not band please contact support team")
     }
-    
+
     if (!userExits.is_verify) {
         throw new AppError("Account not verified Please verify your email")
     }
@@ -169,10 +186,10 @@ const loginService = async (userData) => {
     const token = jwt.sign({ id: userExits.id, email: userExits.email, role: userExits.role }, process.env.secretkey, { expiresIn: '1d' })
 
     await user.update(
-        { is_active: true },                
-        { where: { email: userExits.email } } 
+        { is_active: true },
+        { where: { email: userExits.email } }
     );
-    
+
     return { name: userExits.name, email: userExits.email, authToken: token }
 }
 
@@ -274,6 +291,43 @@ const logoutService = async (userData) => {
     return `User Logout Successfully`
 }
 
+const updateUserService = async (userData) => {
+    const { id, name, email, mobile_no, bio, is_account, profileFile } = userData;
+    const userExits = await user.findByPk(id);
+
+    if (!userExits) {
+        throw new NotFoundError("User not found")
+    }
+
+    let nextProfileUrl = userExits.profile_url;
+
+    if (profileFile) {
+        const { profileDir } = await createUserFolders(userExits.username);
+        nextProfileUrl = await saveProfileImage(userExits.username, profileFile, profileDir);
+        await deleteProfileImage(userExits.profile_url);
+    }
+
+    const updateProfile = await user.update(
+        { name, email, mobile_no, bio, is_account, profile_url: nextProfileUrl },
+        { where: { id } }
+    );
+    if (!updateProfile[0]) {
+        throw new Error('Profile not updated');
+    }
+    const result = await user.findOne({
+        where: { id },
+        attributes: { exclude: ['password'] }
+    });
+    return result;
+}
+
 module.exports = {
-    registerUserService, loginService, verifyOtpService, resendOtpService, changePasswordService, logoutService
+    registerUserService,
+    loginService,
+    verifyOtpService,
+    resendOtpService,
+    changePasswordService,
+    logoutService,
+    updateUserService
+
 }

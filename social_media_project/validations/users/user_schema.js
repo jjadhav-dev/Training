@@ -6,18 +6,12 @@ const registerUserSchema = {
         errorMessage:{
             pattern:'name must not be empty'
          }},
-        username: { type: 'string', minLength: 3 ,pattern: '^(?!\\s*$).+',
-        errorMessage:{
-            pattern:'name must not be empty'
-        }
-        },
         email: { type: 'string', format: 'email' },
-        password: { type: 'string', minLength: 3 },
         mobile_no: { type: 'string',minLength:10},
         bio: { type: 'string' },
         is_account: { type: 'string', enum: ['public', 'private'] }
     },
-    required: ['name', 'username', 'password', 'email'],
+    required: [],
     additionalProperties: false
 };
 
@@ -30,6 +24,26 @@ const loginUserSchema = {
     required: ['password', 'email'],
     additionalProperties: false
 
+};
+
+const updateUserSchema = {
+    type: 'object',
+    properties: {
+        name: { type: 'string', pattern: '^(?!\\s*$).+',
+        errorMessage:{
+            pattern:'name must not be empty'
+         }},
+        username: { type: 'string', minLength: 3 ,pattern: '^(?!\\s*$).+',
+        errorMessage:{
+            pattern:'name must not be empty'
+        }
+        },
+        email: { type: 'string', format: 'email' },
+        mobile_no: { type: 'string', minLength: 10 },
+        bio: { type: 'string' },
+        is_account: { type: 'string', enum: ['public', 'private'] }
+    },
+    additionalProperties: false
 };
 
 const verifyOtpSchema = {
@@ -61,6 +75,6 @@ const userlogoutSchema = {
 };
 
 module.exports = {
-    registerUserSchema, loginUserSchema, verifyOtpSchema, verifyEmailSchema,userlogoutSchema
+    registerUserSchema, loginUserSchema, updateUserSchema, verifyOtpSchema, verifyEmailSchema,userlogoutSchema
 }
     

@@ -1,4 +1,4 @@
-const { registerUserService, loginService, verifyOtpService, resendOtpService, changePasswordService, logoutService }= require('../services/user/user.authservice');
+const { registerUserService, loginService, verifyOtpService, resendOtpService, changePasswordService, logoutService, updateUserService }= require('../services/user/user.authservice');
 
 
 
@@ -61,6 +61,25 @@ const logoutController = async (req, res, next) => {
     }
 }
 
+const updateUserController = async (req, res, next) => {
+    try {
+        const data = await updateUserService({
+            ...req.body,
+            id: req.user.id,    
+            profileFile: req.file
+        });
+        return res.sendJsonResponse({ statusCode: 200, message: "User updated successfully", data });
+    } catch (error) {
+        next(error);
+    }
+}
 module.exports = {
-    registerUserController, loginUserController, verifyOtpController, resendOtpController,changePasswordController,logoutController
+    registerUserController,
+    updateUserController,
+    loginUserController,
+     verifyOtpController, 
+     resendOtpController,
+     changePasswordController,
+     logoutController,
+      updateUserController
 }
