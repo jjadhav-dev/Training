@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Position Demo</title>
+  <style>
+    .parent {
+      height: 600px;
+      width: 800px;
+      border: 2px solid black;
+      padding: 20px;
+      margin: 0 auto;
+      position: relative;
+      background: #f9f9f9;
+      display: flex;
+      gap: 20px;
+    }
+
+    /* Static (default) */
+    .div1 {
+      height: 100px;
+      width: 150px;
+      border: 2px solid black;
+      background: lightblue;
+      /* position: static; default */
+    }
+
+    /* Relative */
+    .div2 {
+      height: 100px;
+      width: 150px;
+      border: 2px solid black;
+      background: lightgreen;
+      position: relative;
+      top: 20px;   /* shifted down */
+      left: 30px;  /* shifted right */
+    }
+
+    /* Absolute */
+    .div3 {
+      height: 100px;
+      width: 150px;
+      border: 2px solid black;
+      background: orange;
+      position: absolute;
+      top: 50px;   
+      right: 20px;
+    }
+
+    /* Fixed */
+    .div4 {
+      height: 100px;
+      width: 150px;
+      border: 2px solid black;
+      background: pink;
+      position: fixed;
+      top: 10px; 
+    }
+
+    /* Sticky */
+    .div5 {
+      height: 100px;
+      width: 150px;
+      border: 2px solid black;
+      background: yellow;
+      position: sticky;
+      top: 0; 
+    }
+  </style>
+</head>
+<body>
+  <div class="parent">
+    <div class="div1">Static</div>
+    <div class="div2">Relative</div>
+    <div class="div3">Absolute</div>
+    <div class="div5">Sticky</div>
+  </div>
+
+  <p style="height:1000px;">
+    Scroll down to see sticky and fixed behavior.
+  </p>
+
+  <div class="div4">Fixed</div>
+</body>
+</html>
